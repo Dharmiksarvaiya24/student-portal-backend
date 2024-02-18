@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -5,8 +6,9 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
+const port = process.env.port || 8000;
 
-mongoose.connect('mongodb+srv://dharmiksarvaiya07:Dharmik%402426@userdata.cr5gck8.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.database, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to Database'))
   .catch(error => console.error(error));
 
@@ -83,6 +85,6 @@ app.put('/:userId', async (req, res) => {
   }
 });
 
-app.listen(8080, () => {
-    console.log("Server started at port 8080");
+app.listen(port, () => {
+    console.log(`Server started at :${port}`);
 });
